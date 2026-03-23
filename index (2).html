@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aastha Properties – Premium Real Estate, New Delhi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ────────────────── VARIABLES & RESET ────────────────── */
+    :root {
+      --black: #0a0a0a;
+      --deep: #111111;
+      --surface: #161616;
+      --card: #1c1c1c;
+      --border: #2a2a2a;
+      --gold: #c9a84c;
+      --gold-light: #e0bf78;
+      --gold-dim: rgba(201,168,76,0.15);
+      --text: #e8e2d4;
+      --muted: #8a8478;
+      --white: #ffffff;
+      --radius: 4px;
+      --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; object-fit: cover; }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ────────────────── SCROLLBAR ────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--deep); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ────────────────── UTILITY ────────────────── */
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+    .section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .gold-line {
+      width: 48px; height: 2px;
+      background: var(--gold);
+      margin: 20px 0 30px;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: transparent;
+      transition: var(--transition);
+    }
+    .btn:hover { background: var(--gold); color: var(--black); }
+    .btn-solid {
+      background: var(--gold); color: var(--black);
+    }
+    .btn-solid:hover { background: var(--gold-light); }
+
+    /* ────────────────── NAVBAR ────────────────── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1180px; margin: 0 auto; padding: 0 28px;
+      height: 72px;
+    }
+    .nav-logo {
+      display: flex; flex-direction: column; line-height: 1;
+      cursor: pointer;
+    }
+    .nav-logo .logo-main {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 700;
+      color: var(--white);
+      letter-spacing: 1px;
+    }
+    .nav-logo .logo-sub {
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold);
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 6px;
+      list-style: none;
+    }
+    .nav-links li a, .nav-links li button {
+      padding: 8px 14px;
+      font-size: 13px; font-weight: 500;
+      color: var(--muted);
+      background: transparent; border: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .nav-links li a:hover, .nav-links li button:hover,
+    .nav-links li a.active, .nav-links li button.active { color: var(--gold); }
+    .nav-cta {
+      padding: 9px 22px !important;
+      border: 1px solid var(--gold) !important;
+      color: var(--gold) !important;
+      transition: var(--transition) !important;
+    }
+    .nav-cta:hover { background: var(--gold) !important; color: var(--black) !important; }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 1.5px;
+      background: var(--text); transition: var(--transition);
+    }
+    .mobile-menu {
+      display: none;
+      background: var(--deep);
+      border-top: 1px solid var(--border);
+      padding: 16px 28px;
+      flex-direction: column; gap: 4px;
+    }
+    .mobile-menu a, .mobile-menu button {
+      display: block; padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px; color: var(--text);
+      background: none; border: none; border-bottom: 1px solid var(--border);
+      width: 100%; text-align: left; cursor: pointer;
+    }
+    .mobile-menu.open { display: flex; }
+
+    /* ────────────────── HERO ────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 72px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        linear-gradient(135deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.7) 60%, rgba(201,168,76,0.04) 100%),
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 40px,
+          rgba(201,168,76,0.02) 40px,
+          rgba(201,168,76,0.02) 41px
+        );
+    }
+    .hero-pattern {
+      position: absolute; bottom: 0; right: -100px;
+      width: 600px; height: 600px; z-index: 0;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 680px;
+      animation: fadeUp 1s ease both;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 24px;
+    }
+    .hero-eyebrow span {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold);
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 32px; height: 1px;
+      background: var(--gold);
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .hero-title em {
+      font-style: italic; color: var(--gold);
+    }
+    .hero-desc {
+      font-size: 16px; color: var(--muted);
+      max-width: 520px; margin-bottom: 40px;
+      line-height: 1.8;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-stats {
+      position: relative; z-index: 1;
+      display: flex; gap: 48px; flex-wrap: wrap;
+      margin-top: 80px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item { text-align: left; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem; font-weight: 700;
+      color: var(--gold); line-height: 1;
+    }
+    .stat-label {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); margin-top: 4px;
+    }
+
+    /* ────────────────── WHY AASTHA ────────────────── */
+    #why {
+      padding: 120px 0;
+      background: var(--deep);
+      position: relative;
+    }
+    #why::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .why-image-stack {
+      position: relative; height: 520px;
+    }
+    .why-img-main {
+      position: absolute; top: 0; left: 0;
+      width: 80%; height: 85%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .why-img-secondary {
+      position: absolute; bottom: 0; right: 0;
+      width: 55%; height: 52%;
+      background: var(--surface);
+      border: 1px solid var(--gold);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .img-placeholder {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 12px;
+      padding: 20px; text-align: center;
+      width: 100%; height: 100%;
+      color: var(--muted);
+      background: var(--card);
+    }
+    .img-placeholder .icon { font-size: 36px; opacity: 0.3; }
+    .img-placeholder p { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.5; }
+    .why-points { display: flex; flex-direction: column; gap: 28px; margin-top: 24px; }
+    .why-point {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 22px 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--gold);
+      transition: var(--transition);
+    }
+    .why-point:hover { background: var(--card); transform: translateX(4px); }
+    .why-point-icon {
+      font-size: 22px; min-width: 36px; margin-top: 2px;
+    }
+    .why-point-text h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--white); margin-bottom: 4px;
+    }
+    .why-point-text p { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+
+    /* ────────────────── ADVANTAGE ────────────────── */
+    #advantage {
+      padding: 120px 0;
+      background: var(--black);
+      position: relative; overflow: hidden;
+    }
+    .advantage-header { text-align: center; max-width: 600px; margin: 0 auto 70px; }
+    .advantage-header .gold-line { margin: 20px auto 30px; }
+    .adv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .adv-card {
+      background: var(--deep);
+      padding: 48px 36px;
+      transition: var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .adv-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform var(--transition);
+    }
+    .adv-card:hover::before { transform: scaleX(1); }
+    .adv-card:hover { background: var(--surface); }
+    .adv-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem; font-weight: 700;
+      color: var(--gold-dim);
+      line-height: 1;
+      margin-bottom: 20px;
+      transition: color var(--transition);
+    }
+    .adv-card:hover .adv-number { color: rgba(201,168,76,0.4); }
+    .adv-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600;
+      color: var(--white); margin-bottom: 12px;
+    }
+    .adv-card p { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+
+    /* ────────────────── TRUST ────────────────── */
+    #trust {
+      padding: 120px 0;
+      background: var(--surface);
+      position: relative;
+    }
+    #trust::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .trust-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 28px;
+    }
+    .trust-quote em { color: var(--gold); font-style: italic; }
+    .trust-body { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
+    .trust-metrics {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 24px; margin-top: 40px;
+    }
+    .trust-metric {
+      padding: 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+    .trust-metric .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem; font-weight: 700;
+      color: var(--gold);
+    }
+    .trust-metric .lbl {
+      font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+      margin-top: 4px;
+    }
+    .trust-right { display: flex; flex-direction: column; gap: 20px; }
+    .trust-badge {
+      padding: 28px 32px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      display: flex; gap: 20px; align-items: flex-start;
+    }
+    .trust-badge-icon { font-size: 28px; }
+    .trust-badge h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--white); margin-bottom: 6px;
+    }
+    .trust-badge p { font-size: 13.5px; color: var(--muted); }
+
+    /* ────────────────── SERVICES GRID ────────────────── */
+    #services {
+      padding: 120px 0;
+      background: var(--deep);
+    }
+    .services-header { margin-bottom: 60px; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 2px;
+    }
+    .services-row-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .service-card {
+      background: var(--surface);
+      padding: 48px 36px;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.04), transparent);
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .service-card:hover::after { opacity: 1; }
+    .service-card:hover { background: var(--card); transform: translateY(-2px); }
+    .service-icon { font-size: 2rem; margin-bottom: 20px; }
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem; font-weight: 600;
+      color: var(--white); margin-bottom: 10px;
+    }
+    .service-card p { font-size: 13.5px; color: var(--muted); line-height: 1.6; flex: 1; }
+    .service-arrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 24px;
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold);
+      transition: gap var(--transition);
+    }
+    .service-card:hover .service-arrow { gap: 14px; }
+
+    /* ────────────────── SERVICE DETAIL PAGE ────────────────── */
+    #service-detail { padding: 120px 0 80px; min-height: 100vh; }
+    .service-detail-hero {
+      padding: 80px 0 60px;
+      background: var(--surface);
+      margin-bottom: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: var(--muted);
+      background: none; border: none;
+      cursor: pointer;
+      margin-bottom: 40px;
+      transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--gold); }
+    .sd-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700; color: var(--white);
+      line-height: 1.1; margin-bottom: 20px;
+    }
+    .sd-subtitle { font-size: 16px; color: var(--muted); max-width: 600px; line-height: 1.8; }
+    .sd-body { padding: 70px 0; }
+    .sd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+    .sd-section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 600;
+      color: var(--white); margin-bottom: 16px;
+    }
+    .sd-text { font-size: 14.5px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+    .sd-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .sd-list li {
+      display: flex; gap: 14px; align-items: flex-start;
+      font-size: 14px; color: var(--text);
+    }
+    .sd-list li::before {
+      content: '◆';
+      color: var(--gold);
+      font-size: 8px;
+      margin-top: 7px;
+    }
+    .sd-features {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin-top: 40px;
+    }
+    .sd-feature {
+      padding: 20px 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--gold);
+    }
+    .sd-feature h5 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 600;
+      color: var(--white); margin-bottom: 4px;
+    }
+    .sd-feature p { font-size: 12.5px; color: var(--muted); }
+    .sd-img-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ────────────────── GALLERY ────────────────── */
+    #gallery { padding: 120px 0; background: var(--black); }
+    .gallery-header { margin-bottom: 50px; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .gallery-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .gallery-item:hover { border-color: var(--gold); }
+    .gallery-item.wide { grid-column: span 2; }
+    .gallery-item.tall { grid-row: span 2; aspect-ratio: auto; }
+    /* To add images: replace .img-placeholder with <img src="YOUR_IMAGE_URL" alt="..."> */
+
+    /* ────────────────── REVIEWS ────────────────── */
+    #reviews { padding: 120px 0; background: var(--surface); }
+    .reviews-header { text-align: center; max-width: 600px; margin: 0 auto 60px; }
+    .reviews-header .gold-line { margin: 20px auto 30px; }
+    .reviews-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .review-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 36px 32px;
+      position: relative;
+      transition: var(--transition);
+    }
+    .review-card::before {
+      content: '"';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 6rem; line-height: 1;
+      color: var(--gold-dim);
+      position: absolute; top: 12px; left: 24px;
+    }
+    .review-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+    .review-stars { color: var(--gold); font-size: 14px; margin-bottom: 16px; letter-spacing: 2px; }
+    .review-text { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 24px; font-style: italic; }
+    .reviewer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 600;
+      color: var(--white);
+    }
+    .reviewer-type { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+
+    /* ────────────────── CONTACT & MAP ────────────────── */
+    #contact { padding: 120px 0; background: var(--deep); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+    .contact-info h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 600;
+      color: var(--white); margin-bottom: 10px;
+    }
+    .contact-details { margin-top: 36px; display: flex; flex-direction: column; gap: 24px; }
+    .contact-item {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .contact-item:last-child { border-bottom: none; }
+    .contact-icon { font-size: 22px; min-width: 32px; color: var(--gold); }
+    .contact-item h4 {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 6px;
+    }
+    .contact-item p { font-size: 14.5px; color: var(--text); line-height: 1.6; }
+    .timings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+    .timing-row { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--muted); }
+    .timing-row span:last-child { color: var(--text); }
+    .map-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      height: 100%;
+      min-height: 460px;
+      position: relative;
+    }
+    .map-container iframe {
+      width: 100%; height: 100%; border: none; filter: invert(90%) hue-rotate(180deg);
+    }
+
+    /* ────────────────── FOOTER ────────────────── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 60px 0 28px;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 48px;
+    }
+    .footer-brand .logo-main {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 700;
+      color: var(--white);
+    }
+    .footer-brand .logo-sub {
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .footer-brand p { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+    .footer-col h4 {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 18px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li { font-size: 13.5px; color: var(--muted); cursor: pointer; transition: color 0.2s; }
+    .footer-col ul li:hover { color: var(--text); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-bottom p { font-size: 12px; color: var(--muted); }
+    .footer-bottom span { color: var(--gold); }
+
+    /* ────────────────── ANIMATIONS ────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeUp 0.7s ease both; }
+
+    /* ────────────────── RESPONSIVE ────────────────── */
+    @media (max-width: 960px) {
+      .why-grid, .trust-grid, .contact-grid { grid-template-columns: 1fr; }
+      .adv-grid, .services-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .hero-stats { gap: 32px; }
+      .reviews-grid { grid-template-columns: 1fr 1fr; }
+      .sd-grid { grid-template-columns: 1fr; }
+      .why-image-stack { height: 340px; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .adv-grid, .services-grid { grid-template-columns: 1fr; }
+      .services-row-2 { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item.wide { grid-column: span 1; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .trust-metrics { grid-template-columns: 1fr 1fr; }
+      .sd-features { grid-template-columns: 1fr; }
+      .hero-stats { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('home')">
+      <span class="logo-main">Aastha Properties</span>
+      <span class="logo-sub">Premium Real Estate</span>
+    </div>
+    <ul class="nav-links">
+      <li><button onclick="showPage('home')" class="active" id="nav-home">Home</button></li>
+      <li><button onclick="showPage('services')">Services</button></li>
+      <li><button onclick="showPage('gallery')">Gallery</button></li>
+      <li><button onclick="showPage('home'); scrollTo('#reviews')">Reviews</button></li>
+      <li><button onclick="showPage('home'); scrollTo('#contact')" class="nav-cta">Contact Us</button></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMobile()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <button onclick="showPage('home');closeMobile()">Home</button>
+    <button onclick="showPage('services');closeMobile()">Services</button>
+    <button onclick="showPage('gallery');closeMobile()">Gallery</button>
+    <button onclick="showPage('home');scrollTo('#reviews');closeMobile()">Reviews</button>
+    <button onclick="showPage('home');scrollTo('#contact');closeMobile()">Contact</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: HOME
+════════════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-pattern"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow"><span>Mansarover Garden, New Delhi</span></div>
+        <h1 class="hero-title">
+          Where Every<br/><em>Property</em> Tells<br/>a Story.
+        </h1>
+        <p class="hero-desc">
+          Aastha Properties brings you decades of expertise in buying, selling, and renting residential and commercial properties across New Delhi — with trust, transparency, and unmatched personal service.
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-solid" onclick="showPage('services')">Explore Services</button>
+          <button class="btn" onclick="scrollTo('#contact')">Get in Touch</button>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Properties Closed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">15+</div>
+          <div class="stat-label">Years of Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Client Satisfaction</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">200+</div>
+          <div class="stat-label">Active Listings</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY AASTHA PROPERTIES -->
+  <section id="why">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-image-stack fade-in">
+          <div class="why-img-main">
+            <div class="img-placeholder">
+              <!-- REPLACE THIS DIV WITH: <img src="your-image.jpg" alt="Residential Property"> -->
+              <div class="icon">🏛️</div>
+              <p>Add your property image here</p>
+            </div>
+          </div>
+          <div class="why-img-secondary">
+            <div class="img-placeholder">
+              <!-- REPLACE THIS DIV WITH: <img src="your-image.jpg" alt="Commercial Property"> -->
+              <div class="icon">🏢</div>
+              <p>Add image here</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Why Choose Us</div>
+          <h2 class="section-title">Why Aastha<br/>Properties?</h2>
+          <div class="gold-line"></div>
+          <p style="font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:32px;">
+            At Aastha Properties, we don't just deal in bricks and mortar — we deal in dreams, aspirations, and the futures of the families and businesses we serve. With roots deep in the heart of New Delhi, we bring you a uniquely personal, knowledgeable, and reliable real estate experience.
+          </p>
+          <div class="why-points">
+            <div class="why-point">
+              <div class="why-point-icon">🏙️</div>
+              <div class="why-point-text">
+                <h4>Deep Local Expertise</h4>
+                <p>Unmatched knowledge of New Delhi's property markets — from Mansarover Garden to every prime locality — gives you an undeniable edge.</p>
+              </div>
+            </div>
+            <div class="why-point">
+              <div class="why-point-icon">🤝</div>
+              <div class="why-point-text">
+                <h4>Client-First Philosophy</h4>
+                <p>Every decision is guided by what matters most to you. Your goals, budget, and timeline are our priority — always.</p>
+              </div>
+            </div>
+            <div class="why-point">
+              <div class="why-point-icon">📋</div>
+              <div class="why-point-text">
+                <h4>End-to-End Support</h4>
+                <p>From the first site visit to final registration, we handle every step of the process seamlessly and transparently.</p>
+              </div>
+            </div>
+            <div class="why-point">
+              <div class="why-point-icon">🔐</div>
+              <div class="why-point-text">
+                <h4>Legal & Documentation Assistance</h4>
+                <p>We navigate complex paperwork, title verification, and legal formalities so you don't have to worry about a thing.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AASTHA ADVANTAGE -->
+  <section id="advantage">
+    <div class="container">
+      <div class="advantage-header">
+        <div class="section-label">The Advantage</div>
+        <h2 class="section-title">The Aastha Properties Advantage</h2>
+        <div class="gold-line"></div>
+        <p style="font-size:15px;color:var(--muted);line-height:1.8;">
+          What sets us apart is not just experience — it's an unwavering commitment to excellence that shapes every interaction, every transaction, and every long-term relationship.
+        </p>
+      </div>
+      <div class="adv-grid">
+        <div class="adv-card">
+          <div class="adv-number">01</div>
+          <h3>Verified Listings Only</h3>
+          <p>Every property in our portfolio is thoroughly verified for clear title, legal standing, and structural soundness before being presented to you.</p>
+        </div>
+        <div class="adv-card">
+          <div class="adv-number">02</div>
+          <h3>Zero Hidden Charges</h3>
+          <p>Complete transparency in pricing and brokerage. No surprise charges at the last moment — we believe in honest, upfront dealing.</p>
+        </div>
+        <div class="adv-card">
+          <div class="adv-number">03</div>
+          <h3>Market-Smart Pricing</h3>
+          <p>Our pricing is backed by real-time market data and decades of ground-level experience, ensuring you always get the best deal available.</p>
+        </div>
+        <div class="adv-card">
+          <div class="adv-number">04</div>
+          <h3>Fast Turnaround</h3>
+          <p>We respect your time. Our streamlined process ensures faster closings without compromising due diligence or quality of service.</p>
+        </div>
+        <div class="adv-card">
+          <div class="adv-number">05</div>
+          <h3>Post-Sale Assistance</h3>
+          <p>Our relationship doesn't end at the handover. We continue to support our clients with possession, registration, and move-in guidance.</p>
+        </div>
+        <div class="adv-card">
+          <div class="adv-number">06</div>
+          <h3>Diverse Portfolio</h3>
+          <p>From budget homes to premium villas, from compact shops to large commercial complexes — we cater to every need and every budget.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section id="trust">
+    <div class="container">
+      <div class="trust-grid">
+        <div>
+          <div class="section-label">Our Legacy</div>
+          <h2 class="trust-quote">
+            Our clients have <em>believed and trusted us</em> — and we have never let them down.
+          </h2>
+          <p class="trust-body">
+            Over the years, hundreds of families and businesses across New Delhi have placed their most important financial decisions in our hands. That faith is not something we take lightly. It is the foundation of every deal we make and every promise we keep.
+          </p>
+          <p class="trust-body">
+            From first-time homebuyers navigating an overwhelming market, to seasoned investors seeking the best commercial return — each client has trusted Aastha Properties as their guide, and we have delivered, every single time.
+          </p>
+          <div class="trust-metrics">
+            <div class="trust-metric"><div class="num">500+</div><div class="lbl">Happy Clients</div></div>
+            <div class="trust-metric"><div class="num">15+</div><div class="lbl">Years Serving Delhi</div></div>
+            <div class="trust-metric"><div class="num">₹500Cr+</div><div class="lbl">Property Value Transacted</div></div>
+            <div class="trust-metric"><div class="num">4.9★</div><div class="lbl">Average Client Rating</div></div>
+          </div>
+        </div>
+        <div class="trust-right">
+          <div class="trust-badge">
+            <div class="trust-badge-icon">🏆</div>
+            <div>
+              <h4>Trusted for Over 15 Years</h4>
+              <p>A legacy built not on advertisements, but on the word-of-mouth referrals of our satisfied clients.</p>
+            </div>
+          </div>
+          <div class="trust-badge">
+            <div class="trust-badge-icon">📜</div>
+            <div>
+              <h4>Legal & Compliant Transactions</h4>
+              <p>Every deal is conducted in full compliance with RERA guidelines and applicable Delhi laws, protecting your investment.</p>
+            </div>
+          </div>
+          <div class="trust-badge">
+            <div class="trust-badge-icon">💼</div>
+            <div>
+              <h4>Institutional & Individual Clients</h4>
+              <p>We proudly serve individual homebuyers, NRIs, businesses, and institutional investors with equal commitment and care.</p>
+            </div>
+          </div>
+          <div class="trust-badge">
+            <div class="trust-badge-icon">🌐</div>
+            <div>
+              <h4>Delhi-Wide Network</h4>
+              <p>An extensive network of builders, developers, and property owners gives our clients access to deals unavailable elsewhere.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES PREVIEW (on home) -->
+  <section id="services" style="padding:120px 0;background:var(--deep);">
+    <div class="container">
+      <div class="services-header">
+        <div class="section-label">What We Offer</div>
+        <h2 class="section-title">Our Services</h2>
+        <div class="gold-line"></div>
+        <p style="font-size:15px;color:var(--muted);max-width:560px;">
+          From buying your first home to leasing a commercial space, Aastha Properties covers every real estate need with expert, personalised care.
+        </p>
+      </div>
+      <div class="services-grid" style="margin-bottom:2px;">
+        <div class="service-card" onclick="showServiceDetail('res-sale')">
+          <div class="service-icon">🏠</div>
+          <h3>Residential Sale</h3>
+          <p>Find your dream home in New Delhi's finest localities. We match buyers with the right properties — flats, villas, floors, and independent houses.</p>
+          <span class="service-arrow">Learn More →</span>
+        </div>
+        <div class="service-card" onclick="showServiceDetail('res-purchase')">
+          <div class="service-icon">🔑</div>
+          <h3>Residential Purchase</h3>
+          <p>Looking to sell your residential property at the best price? We handle marketing, negotiation, and closing — stress-free from your end.</p>
+          <span class="service-arrow">Learn More →</span>
+        </div>
+        <div class="service-card" onclick="showServiceDetail('res-rent')">
+          <div class="service-icon">📋</div>
+          <h3>Residential Rental</h3>
+          <p>Comprehensive rental solutions for tenants and landlords — from lease drafting to tenant screening and ongoing rental management support.</p>
+          <span class="service-arrow">Learn More →</span>
+        </div>
+      </div>
+      <div class="services-grid services-row-2" style="margin-bottom:2px;">
+        <div class="service-card" onclick="showServiceDetail('com-sale')">
+          <div class="service-icon">🏢</div>
+          <h3>Commercial Sale & Purchase</h3>
+          <p>Offices, retail outlets, warehouses, and mixed-use developments — we navigate complex commercial transactions with precision and expertise.</p>
+          <span class="service-arrow">Learn More →</span>
+        </div>
+        <div class="service-card" onclick="showServiceDetail('com-rent')">
+          <div class="service-icon">🏬</div>
+          <h3>Commercial Rental</h3>
+          <p>Leasing commercial spaces for businesses of all sizes. We understand location strategy, footfall, and ROI — matching businesses with the right premises.</p>
+          <span class="service-arrow">Learn More →</span>
+        </div>
+      </div>
+      <div class="services-grid services-row-2">
+        <div class="service-card" onclick="showServiceDetail('collab')">
+          <div class="service-icon">🤝</div>
+          <h3>Collaborations & Partnerships</h3>
+          <p>Strategic partnerships with builders, developers, housing societies, and financial institutions to bring exclusive deals and offers to our clients.</p>
+          <span class="service-arrow">Learn More →</span>
+        </div>
+        <div class="service-card" onclick="showServiceDetail('other')">
+          <div class="service-icon">✨</div>
+          <h3>Other Services</h3>
+          <p>Property valuation, legal documentation support, NRI property management, investment advisory, and more — all under one roof.</p>
+          <span class="service-arrow">Learn More →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews">
+    <div class="container">
+      <div class="reviews-header">
+        <div class="section-label">Client Testimonials</div>
+        <h2 class="section-title">What Our Clients Say</h2>
+        <div class="gold-line"></div>
+        <p style="font-size:15px;color:var(--muted);">Real experiences. Real trust. Real results.</p>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">Aastha Properties made my first home purchase completely stress-free. They understood my budget and found me a beautiful flat in exactly the area I wanted. Highly professional and deeply trustworthy.</p>
+          <div class="reviewer-name">Rajesh Sharma</div>
+          <div class="reviewer-type">Home Buyer · Mansarover Garden</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">I was trying to rent out my commercial space for months with no luck. Within two weeks of approaching Aastha Properties, I had a verified tenant at above-market rent. Outstanding service.</p>
+          <div class="reviewer-name">Sunita Malhotra</div>
+          <div class="reviewer-type">Commercial Landlord · West Delhi</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">As an NRI, managing property remotely was always a challenge. Aastha Properties handled everything — from finding tenants to monthly rent collection and maintenance oversight. Truly a lifesaver.</p>
+          <div class="reviewer-name">Amit Verma</div>
+          <div class="reviewer-type">NRI Property Owner · Based in Canada</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">We were searching for the right office space in New Delhi for over six months. Aastha Properties found us the perfect location in just three weeks. The team's local knowledge is second to none.</p>
+          <div class="reviewer-name">Priya Kapoor</div>
+          <div class="reviewer-type">Business Owner · New Delhi</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">The documentation and legal support provided by Aastha Properties saved us from a very complicated title dispute. Their attention to detail and due diligence is exceptional. Truly trustworthy professionals.</p>
+          <div class="reviewer-name">Vikram Singh</div>
+          <div class="reviewer-type">Residential Buyer · Rajouri Garden</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">Sold my property at a price higher than expected. The team marketed it brilliantly and negotiated firmly on our behalf. I would not trust anyone else for my future property transactions in Delhi.</p>
+          <div class="reviewer-name">Meena Gupta</div>
+          <div class="reviewer-type">Property Seller · Patel Nagar</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT & MAP -->
+  <section id="contact">
+    <div class="container">
+      <div style="margin-bottom:60px;">
+        <div class="section-label">Find Us</div>
+        <h2 class="section-title">Visit Aastha Properties</h2>
+        <div class="gold-line"></div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <h4>Address</h4>
+                <p>Aastha Properties<br/>Mansarover Garden,<br/>New Delhi – 110015</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🕐</div>
+              <div>
+                <h4>Working Hours</h4>
+                <div class="timings-grid">
+                  <div class="timing-row"><span>Monday – Friday</span><span>9:00 AM – 7:00 PM</span></div>
+                  <div class="timing-row"><span>Saturday</span><span>10:00 AM – 6:00 PM</span></div>
+                  <div class="timing-row"><span>Sunday</span><span>By Appointment</span></div>
+                  <div class="timing-row"><span>Public Holidays</span><span>Closed</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div>
+                <h4>Phone</h4>
+                <!-- REPLACE with your actual phone number -->
+                <p>+91 XXXXX XXXXX<br/>+91 XXXXX XXXXX</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">✉️</div>
+              <div>
+                <h4>Email</h4>
+                <!-- REPLACE with your actual email -->
+                <p>info@aasthaproperties.in<br/>sales@aasthaproperties.in</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="map-container">
+          <!-- Google Maps embed for Mansarover Garden, New Delhi -->
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.123456789!2d77.1268!3d28.6452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d03d7d7d7d7d7%3A0x1234567890abcdef!2sMansarover+Garden%2C+New+Delhi%2C+Delhi+110015!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end page-home -->
+
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: SERVICES LIST
+════════════════════════════════════════════════════ -->
+<div id="page-services" class="page" style="padding-top:72px;">
+  <div style="background:var(--surface);padding:80px 0 60px;border-bottom:1px solid var(--border);">
+    <div class="container">
+      <div class="section-label">What We Offer</div>
+      <h1 class="section-title">Our Services</h1>
+      <div class="gold-line"></div>
+      <p style="font-size:15px;color:var(--muted);max-width:580px;">
+        Aastha Properties offers comprehensive real estate solutions across residential and commercial segments. Click on any service to learn more.
+      </p>
+    </div>
+  </div>
+  <div style="padding:80px 0;background:var(--deep);">
+    <div class="container">
+      <div class="services-grid" style="margin-bottom:2px;">
+        <div class="service-card" onclick="showServiceDetail('res-sale')">
+          <div class="service-icon">🏠</div>
+          <h3>Residential Sale</h3>
+          <p>Find your perfect home — flats, villas, builder floors, and independent houses across New Delhi. Personalised, guided, and stress-free.</p>
+          <span class="service-arrow">Learn More →</span>
+        </div>
+        <div class="service-card" onclick="showServiceDetail('res-purchase')">
+          <div class="service-icon">🔑</div>
+          <h3>Residential Purchase</h3>
+          <p>Sell your residential property with maximum value. Our expert team handles marketing, valuation, negotiation, and documentation.</p>
+          <span class="service-arrow">Learn More →</span>
+        </div>
+        <div class="service-card" onclick="showServiceDetail('res-rent')">
+          <div class="service-icon">📋</div>
+          <h3>Residential Rental</h3>
+          <p>End-to-end rental management for landlords and tenants. Tenant screening, lease drafting, and ongoing support included.</p>
+          <span class="service-arrow">Learn More →</span>
+        </div>
+      </div>
+      <div class="services-grid services-row-2" style="margin-bottom:2px;">
+        <div class="service-card" onclick="showServiceDetail('com-sale')">
+          <div class="service-icon">🏢</div>
+          <h3>Commercial Sale & Purchase</h3>
+          <p>Navigate complex commercial transactions — offices, shops, showrooms, warehouses — with expert guidance at every stage.</p>
+          <span class="service-arrow">Learn More →</span>
+        </div>
+        <div class="service-card" onclick="showServiceDetail('com-rent')">
+          <div class="service-icon">🏬</div>
+          <h3>Commercial Rental</h3>
+          <p>Leasing commercial spaces for businesses. Find or lease offices, retail outlets, and industrial spaces with strategic advice.</p>
+          <span class="service-arrow">Learn More →</span>
+        </div>
+      </div>
+      <div class="services-grid services-row-2">
+        <div class="service-card" onclick="showServiceDetail('collab')">
+          <div class="service-icon">🤝</div>
+          <h3>Collaborations & Partnerships</h3>
+          <p>Partnerships with builders, developers, and housing societies for exclusive project listings and joint venture opportunities.</p>
+          <span class="service-arrow">Learn More →</span>
+        </div>
+        <div class="service-card" onclick="showServiceDetail('other')">
+          <div class="service-icon">✨</div>
+          <h3>Other Services</h3>
+          <p>Property valuation, legal support, NRI management, investment advisory, and more comprehensive real estate solutions.</p>
+          <span class="service-arrow">Learn More →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: SERVICE DETAIL
+════════════════════════════════════════════════════ -->
+<div id="page-service-detail" class="page" style="padding-top:72px;">
+  <div id="sd-content"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: GALLERY
+════════════════════════════════════════════════════ -->
+<div id="page-gallery" class="page" style="padding-top:72px;">
+  <div style="background:var(--surface);padding:80px 0 60px;border-bottom:1px solid var(--border);">
+    <div class="container">
+      <div class="section-label">Our Portfolio</div>
+      <h1 class="section-title">Property Gallery</h1>
+      <div class="gold-line"></div>
+      <p style="font-size:15px;color:var(--muted);max-width:580px;">
+        A visual showcase of properties sold, rented, and managed by Aastha Properties across New Delhi.
+      </p>
+    </div>
+  </div>
+  <div style="padding:80px 0;background:var(--black);">
+    <div class="container">
+      <!-- RESIDENTIAL GALLERY -->
+      <div style="margin-bottom:60px;">
+        <div class="section-label" style="margin-bottom:8px;">Residential</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--white);margin-bottom:32px;">Residential Properties</h2>
+        <div class="gallery-grid">
+          <!-- TO ADD IMAGES: Replace each .img-placeholder div with <img src="your-image.jpg" alt="..."> inside the .gallery-item div -->
+          <div class="gallery-item wide">
+            <div class="img-placeholder">
+              <div class="icon">🏠</div>
+              <p>Residential Image 1<br/><small style="opacity:0.4;font-size:10px;">Replace with &lt;img src="..."&gt;</small></p>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <div class="img-placeholder"><div class="icon">🏠</div><p>Residential Image 2</p></div>
+          </div>
+          <div class="gallery-item">
+            <div class="img-placeholder"><div class="icon">🏠</div><p>Residential Image 3</p></div>
+          </div>
+          <div class="gallery-item">
+            <div class="img-placeholder"><div class="icon">🏠</div><p>Residential Image 4</p></div>
+          </div>
+          <div class="gallery-item wide">
+            <div class="img-placeholder"><div class="icon">🏠</div><p>Residential Image 5</p></div>
+          </div>
+          <div class="gallery-item">
+            <div class="img-placeholder"><div class="icon">🏠</div><p>Residential Image 6</p></div>
+          </div>
+          <div class="gallery-item">
+            <div class="img-placeholder"><div class="icon">🏠</div><p>Residential Image 7</p></div>
+          </div>
+          <div class="gallery-item">
+            <div class="img-placeholder"><div class="icon">🏠</div><p>Residential Image 8</p></div>
+          </div>
+        </div>
+      </div>
+      <!-- COMMERCIAL GALLERY -->
+      <div style="margin-bottom:60px;">
+        <div class="section-label" style="margin-bottom:8px;">Commercial</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--white);margin-bottom:32px;">Commercial Properties</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <div class="img-placeholder"><div class="icon">🏢</div><p>Commercial Image 1</p></div>
+          </div>
+          <div class="gallery-item">
+            <div class="img-placeholder"><div class="icon">🏢</div><p>Commercial Image 2</p></div>
+          </div>
+          <div class="gallery-item">
+            <div class="img-placeholder"><div class="icon">🏢</div><p>Commercial Image 3</p></div>
+          </div>
+          <div class="gallery-item wide">
+            <div class="img-placeholder"><div class="icon">🏢</div><p>Commercial Image 4</p></div>
+          </div>
+          <div class="gallery-item">
+            <div class="img-placeholder"><div class="icon">🏢</div><p>Commercial Image 5</p></div>
+          </div>
+          <div class="gallery-item">
+            <div class="img-placeholder"><div class="icon">🏢</div><p>Commercial Image 6</p></div>
+          </div>
+          <div class="gallery-item">
+            <div class="img-placeholder"><div class="icon">🏢</div><p>Commercial Image 7</p></div>
+          </div>
+          <div class="gallery-item">
+            <div class="img-placeholder"><div class="icon">🏢</div><p>Commercial Image 8</p></div>
+          </div>
+        </div>
+      </div>
+      <!-- VIDEO SECTION -->
+      <div>
+        <div class="section-label" style="margin-bottom:8px;">Videos</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--white);margin-bottom:32px;">Property Videos</h2>
+        <div class="gallery-grid" style="grid-template-columns:repeat(2,1fr);">
+          <!-- TO ADD VIDEOS: Replace with <video src="..." controls></video> or embed YouTube -->
+          <div class="gallery-item" style="aspect-ratio:16/9;">
+            <div class="img-placeholder"><div class="icon">🎬</div><p>Property Video 1<br/><small style="opacity:0.4;font-size:10px;">Add &lt;video&gt; or YouTube embed</small></p></div>
+          </div>
+          <div class="gallery-item" style="aspect-ratio:16/9;">
+            <div class="img-placeholder"><div class="icon">🎬</div><p>Property Video 2</p></div>
+          </div>
+          <div class="gallery-item" style="aspect-ratio:16/9;">
+            <div class="img-placeholder"><div class="icon">🎬</div><p>Property Video 3</p></div>
+          </div>
+          <div class="gallery-item" style="aspect-ratio:16/9;">
+            <div class="img-placeholder"><div class="icon">🎬</div><p>Property Video 4</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER (shared across all pages)
+════════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-main">Aastha Properties</div>
+        <div class="logo-sub">Premium Real Estate, New Delhi</div>
+        <p>Trusted by hundreds of families and businesses across New Delhi for over 15 years. Your property journey, our commitment.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li onclick="showServiceDetail('res-sale')">Residential Sale</li>
+          <li onclick="showServiceDetail('res-purchase')">Residential Purchase</li>
+          <li onclick="showServiceDetail('res-rent')">Residential Rental</li>
+          <li onclick="showServiceDetail('com-sale')">Commercial Sale</li>
+          <li onclick="showServiceDetail('com-rent')">Commercial Rental</li>
+          <li onclick="showServiceDetail('collab')">Collaborations</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li onclick="showPage('home')">Home</li>
+          <li onclick="showPage('services')">All Services</li>
+          <li onclick="showPage('gallery')">Gallery</li>
+          <li onclick="showPage('home');scrollTo('#reviews')">Reviews</li>
+          <li onclick="showPage('home');scrollTo('#contact')">Contact</li>
+          <li onclick="showPage('home');scrollTo('#why')">About Us</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li>Mansarover Garden</li>
+          <li>New Delhi – 110015</li>
+          <li style="margin-top:8px;">+91 XXXXX XXXXX</li>
+          <li>info@aasthaproperties.in</li>
+          <li style="margin-top:8px;">Mon–Fri: 9AM–7PM</li>
+          <li>Sat: 10AM–6PM</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 <span>Aastha Properties</span>. All rights reserved. Mansarover Garden, New Delhi.</p>
+      <p style="font-size:11px;">Real Estate Services · New Delhi · RERA Compliant</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════ -->
+<script>
+  /* ─── SERVICE DATA ─── */
+  const serviceData = {
+    'res-sale': {
+      icon: '🏠',
+      title: 'Residential Sale',
+      subtitle: 'Find your perfect home in New Delhi — guided every step of the way.',
+      intro: `Buying a home is one of the most significant decisions of your life, and at Aastha Properties, we ensure it becomes one of the most rewarding. Our residential sale service is designed for individuals and families looking to purchase flats, villas, builder floors, independent houses, and plotted developments across New Delhi.`,
+      body: `We begin by understanding your requirements in depth — location preferences, budget, lifestyle needs, and long-term goals. Using our extensive network and deep local market knowledge, we curate a shortlist of verified, legally-clear properties that genuinely match your needs — not just your budget.\n\nFrom the first site visit to the final registration, our team guides you through every legal, financial, and logistical step. We provide honest guidance on property valuation, builder reputation, and neighbourhood dynamics so you make a fully informed decision.`,
+      list: [
+        'Extensive portfolio of verified residential properties across New Delhi',
+        'Personalised property matching based on your lifestyle and budget',
+        'Home loan assistance and financial planning support',
+        'Independent legal title verification and due diligence',
+        'Builder and developer background checks',
+        'End-to-end documentation, registry, and handover support',
+        'Post-purchase assistance for interior connections, society membership, and possession',
+        'Access to off-market, pre-launch, and exclusive developer deals'
+      ],
+      features: [
+        { title: 'Budget Homes', desc: 'Affordable flats and floors for first-time buyers' },
+        { title: 'Premium Villas', desc: 'Luxury independent houses and gated communities' },
+        { title: 'Builder Floors', desc: 'Flexible multi-floor independent options' },
+        { title: 'NRI Services', desc: 'Seamless purchase support for NRI buyers' }
+      ]
+    },
+    'res-purchase': {
+      icon: '🔑',
+      title: 'Residential Property Sale (Sell Your Home)',
+      subtitle: 'Sell your residential property at the best price, with zero stress.',
+      intro: `If you're looking to sell your residential property, Aastha Properties delivers results that consistently exceed expectations. Our deep market knowledge, extensive buyer network, and professional marketing approach ensure that your property gets the visibility and the price it truly deserves.`,
+      body: `We start with a detailed property assessment and a realistic, data-backed market valuation. We then develop a tailored marketing strategy — including professional photography recommendations, online listings, targeted outreach to our buyer database, and on-ground promotion in the right circles.\n\nOur negotiation specialists handle all buyer interactions firmly on your behalf, ensuring you receive the best possible price while maintaining a smooth, professional transaction process.`,
+      list: [
+        'Accurate, market-data-backed property valuation at no charge',
+        'Professional marketing strategy and listing management',
+        'Access to an exclusive pre-qualified buyer database',
+        'Skilled negotiation team working in your interest',
+        'Complete documentation, legal vetting, and registry coordination',
+        'Transparent progress updates at every stage',
+        'Assistance with tax implications and capital gains planning',
+        'Fast-track sale options for urgent timelines'
+      ],
+      features: [
+        { title: 'Free Valuation', desc: 'Honest, accurate market price assessment' },
+        { title: 'Verified Buyers', desc: 'Pre-screened, financially capable buyers only' },
+        { title: 'Legal Support', desc: 'Full documentation and registry assistance' },
+        { title: 'Quick Sale', desc: 'Expedited process for time-sensitive transactions' }
+      ]
+    },
+    'res-rent': {
+      icon: '📋',
+      title: 'Residential Rental Services',
+      subtitle: 'Hassle-free rental solutions for both landlords and tenants.',
+      intro: `Whether you are a property owner looking for the right tenant, or a tenant searching for the ideal home, Aastha Properties offers a comprehensive residential rental service that makes the entire process smooth, transparent, and legally sound.`,
+      body: `For landlords, we conduct thorough tenant screening, handle lease negotiations, draft legally compliant rental agreements, and provide ongoing rental management support. For tenants, we offer a carefully curated selection of verified properties matching your budget, location, and lifestyle requirements — without any hidden surprises.\n\nWe manage the full lifecycle of a rental relationship, from initial matching to agreement signing, check-in documentation, and renewal or exit processes.`,
+      list: [
+        'Verified tenant screening including background and financial checks',
+        'Legally compliant rental and leave-and-licence agreements',
+        'Rent negotiation and deposit management advisory',
+        'Property inventory documentation and check-in/check-out support',
+        'Ongoing rent collection and escalation assistance',
+        'Security deposit handling and dispute mediation',
+        'Property maintenance coordination for landlords',
+        'Lease renewal and exit formality management'
+      ],
+      features: [
+        { title: 'Tenant Screening', desc: 'Thorough background verification process' },
+        { title: 'Legal Agreements', desc: 'Professionally drafted, RERA-aligned leases' },
+        { title: 'Rent Management', desc: 'Ongoing collection and escalation support' },
+        { title: 'Conflict Resolution', desc: 'Neutral mediation for landlord-tenant issues' }
+      ]
+    },
+    'com-sale': {
+      icon: '🏢',
+      title: 'Commercial Sale & Purchase',
+      subtitle: 'Expert guidance for commercial property transactions of every scale.',
+      intro: `Commercial real estate transactions are far more complex than residential ones — they involve higher stakes, greater due diligence, zoning compliance, and long-term ROI considerations. Aastha Properties brings deep commercial market expertise to every transaction, serving businesses, investors, and developers alike.`,
+      body: `We handle the sale and purchase of offices, retail outlets, showrooms, restaurants, warehouses, industrial plots, and mixed-use developments across New Delhi. Our commercial team understands location strategy, footfall analysis, rental yield potential, and resale value — giving buyers and sellers a decisive edge.\n\nWhether you're acquiring your first commercial space or divesting a large portfolio, our end-to-end service covers valuation, legal due diligence, negotiations, and complete documentation.`,
+      list: [
+        'Comprehensive commercial property portfolio across New Delhi',
+        'Location strategy and ROI analysis for buyers',
+        'Commercial property valuation and yield assessment',
+        'Zoning, land use, and regulatory compliance guidance',
+        'Lease deed and conveyance deed drafting and review',
+        'Builder and developer due diligence for commercial projects',
+        'Sale and leaseback transaction structuring',
+        'Investment portfolio advisory for commercial real estate'
+      ],
+      features: [
+        { title: 'Office Spaces', desc: 'Ready-to-move and shell office spaces' },
+        { title: 'Retail Outlets', desc: 'High-footfall shops and showrooms' },
+        { title: 'Warehouses', desc: 'Industrial and storage facilities' },
+        { title: 'Mixed-Use', desc: 'Commercial-residential development plots' }
+      ]
+    },
+    'com-rent': {
+      icon: '🏬',
+      title: 'Commercial Rental Services',
+      subtitle: 'Find the perfect commercial space for your business — or the perfect tenant for your property.',
+      intro: `The right commercial space can transform a business. At Aastha Properties, we help businesses find commercial premises that align perfectly with their operational needs, customer demographics, and growth plans — at the best market-linked rental terms.`,
+      body: `We serve both landlords looking to lease their commercial properties at maximum yield and businesses looking for offices, retail outlets, restaurants, or storage spaces. Our approach goes beyond simple matching — we analyse your business model, advise on optimal location, and negotiate lease terms that protect your interests for the long term.\n\nWe also manage complex commercial lease structures including revenue-sharing agreements, fit-out clauses, lock-in periods, and escalation terms.`,
+      list: [
+        'Wide commercial rental inventory: offices, shops, showrooms, warehouses',
+        'Business-model-based location and space advisory',
+        'Commercial lease negotiation and structuring',
+        'Fit-out, maintenance, and common area charge advisory',
+        'Revenue-sharing and CAM charges guidance',
+        'Lease renewal, renegotiation, and exit management',
+        'Turnkey handover coordination for landlords',
+        'Long-term rental management for commercial portfolio owners'
+      ],
+      features: [
+        { title: 'Office Leasing', desc: 'Co-working to full-floor corporate spaces' },
+        { title: 'Retail Leasing', desc: 'High-street and mall leasing advisory' },
+        { title: 'Flex Spaces', desc: 'Short-term and managed office solutions' },
+        { title: 'Industrial Rental', desc: 'Warehouse and logistics space leasing' }
+      ]
+    },
+    'collab': {
+      icon: '🤝',
+      title: 'Collaborations & Partnerships',
+      subtitle: 'Building strategic alliances that create exceptional value for all stakeholders.',
+      intro: `Aastha Properties has cultivated a rich network of builders, developers, housing societies, financial institutions, interior designers, and legal professionals over 15 years. We actively seek meaningful collaborations and partnerships that expand what we can offer our clients and create mutual growth for all partners.`,
+      body: `Our collaboration framework spans multiple dimensions: exclusive project listings with new developers, joint marketing arrangements with builders, referral partnerships with home loan institutions, and co-brokerage arrangements with other trusted real estate firms.\n\nWe also work closely with housing societies for resale and rental mandates, partner with relocation companies for corporate housing needs, and collaborate with NRI networks to serve the diaspora property market.`,
+      list: [
+        'Builder and developer exclusive listing partnerships',
+        'Pre-launch and off-market access for partner projects',
+        'Co-brokerage arrangements with trusted partner brokers',
+        'Home loan institution referral and facilitation partnerships',
+        'Corporate relocation and employee housing partnerships',
+        'NRI network and diaspora investment partnerships',
+        'Interior design and home improvement referral network',
+        'Legal and tax advisory professional partnerships'
+      ],
+      features: [
+        { title: 'Builder Tie-ups', desc: 'Exclusive access to new project launches' },
+        { title: 'Financial Partners', desc: 'Home loan facilitation at best rates' },
+        { title: 'Co-brokerage', desc: 'Revenue-sharing with partner agencies' },
+        { title: 'Corporate Housing', desc: 'B2B relocation service partnerships' }
+      ]
+    },
+    'other': {
+      icon: '✨',
+      title: 'Other Specialised Services',
+      subtitle: 'Comprehensive real estate support services beyond buying, selling, and renting.',
+      intro: `Beyond our core transaction services, Aastha Properties offers a wide range of specialised real estate support services. These are designed to solve specific, complex challenges that property owners, buyers, and investors face — all delivered with the same trust and professionalism we are known for.`,
+      body: `From professional property valuations to NRI property management, from legal documentation support to long-term real estate investment advisory — our extended services ensure that every aspect of your property journey is covered under one trusted roof.\n\nWe understand that real estate is rarely straightforward, and our specialised services exist to navigate the grey areas, complications, and unique circumstances that arise in real-world property dealings.`,
+      list: [
+        'Independent professional property valuation reports',
+        'NRI property management: rent collection, maintenance, legal compliance',
+        'Real estate investment portfolio advisory and planning',
+        'Property legal documentation review and due diligence',
+        'Title dispute resolution and legal referral services',
+        'Succession, gifting, and estate property management',
+        'Power of Attorney (PoA) property management for absentee owners',
+        'Property tax advisory and municipal compliance support'
+      ],
+      features: [
+        { title: 'Property Valuation', desc: 'Independent, certified valuation reports' },
+        { title: 'NRI Management', desc: 'Full property management for overseas owners' },
+        { title: 'Legal Support', desc: 'Documentation and title verification' },
+        { title: 'Investment Advisory', desc: 'Portfolio planning and yield optimisation' }
+      ]
+    }
+  };
+
+  /* ─── PAGE ROUTING ─── */
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const pg = document.getElementById('page-' + name);
+    if (pg) { pg.classList.add('active'); }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // highlight nav
+    document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+    const navBtn = document.getElementById('nav-' + name);
+    if (navBtn) navBtn.classList.add('active');
+  }
+
+  function showServiceDetail(key) {
+    const d = serviceData[key];
+    if (!d) return;
+    const featureHTML = d.features.map(f =>
+      `<div class="sd-feature"><h5>${f.title}</h5><p>${f.desc}</p></div>`
+    ).join('');
+    const listHTML = d.list.map(l => `<li>${l}</li>`).join('');
+    document.getElementById('sd-content').innerHTML = `
+      <div style="background:var(--surface);padding:80px 0 60px;border-bottom:1px solid var(--border);">
+        <div class="container">
+          <button class="back-btn" onclick="showPage('services')">← Back to Services</button>
+          <div style="font-size:3rem;margin-bottom:20px;">${d.icon}</div>
+          <div class="sd-title">${d.title}</div>
+          <p class="sd-subtitle">${d.subtitle}</p>
+        </div>
+      </div>
+      <div class="sd-body">
+        <div class="container">
+          <div class="sd-grid">
+            <div>
+              <h3 class="sd-section-title">Overview</h3>
+              <p class="sd-text">${d.intro}</p>
+              <p class="sd-text">${d.body.replace(/\n\n/g,'</p><p class="sd-text">')}</p>
+              <div class="sd-features">${featureHTML}</div>
+            </div>
+            <div>
+              <div class="sd-img-block" style="margin-bottom:32px;">
+                <!-- REPLACE with <img src="your-service-image.jpg" alt="${d.title}"> -->
+                <div class="img-placeholder">
+                  <div class="icon">${d.icon}</div>
+                  <p>Add a service image here</p>
+                </div>
+              </div>
+              <h3 class="sd-section-title">What's Included</h3>
+              <ul class="sd-list">${listHTML}</ul>
+              <div style="margin-top:36px;">
+                <button class="btn btn-solid" onclick="showPage('home');setTimeout(()=>scrollTo('#contact'),300)">Enquire About This Service</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-service-detail').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function scrollTo(id) {
+    setTimeout(() => {
+      const el = document.querySelector(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  }
+
+  /* ─── MOBILE MENU ─── */
+  function toggleMobile() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMobile() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  /* ─── NAVBAR SCROLL ─── */
+  window.addEventListener('scroll', () => {
+    const nb = document.getElementById('navbar');
+    nb.style.borderBottomColor = window.scrollY > 60 ? 'var(--gold)' : 'var(--border)';
+  });
+</script>
+</body>
+</html>
